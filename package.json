@@ -19,5 +19,8 @@
   "homepage": "https://github.com/vic30004/frontend-generator#readme",
   "devDependencies": {
     "jest": "^29.1.2"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
   }
 }
