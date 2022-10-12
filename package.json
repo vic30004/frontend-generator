@@ -1,0 +1,23 @@
+{
+  "name": "frontend-generator",
+  "version": "1.0.0",
+  "description": "A cli app to generate frontend folders and files from a config file.",
+  "main": "output.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vic30004/frontend-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vic30004/frontend-generator/issues"
+  },
+  "homepage": "https://github.com/vic30004/frontend-generator#readme",
+  "devDependencies": {
+    "jest": "^29.1.2"
+  }
+}
