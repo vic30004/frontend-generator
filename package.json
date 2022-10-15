@@ -4,6 +4,7 @@
   "description": "A cli app to generate frontend folders and files from a config file.",
   "main": "output.js",
   "scripts": {
+    "start": "node generator.js",
     "test": "jest"
   },
   "repository": {

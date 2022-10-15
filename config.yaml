@@ -1,0 +1,34 @@
+name: 'test'
+application: "application"
+scope: "acme"
+type: "react-express"
+packages:
+  - axios
+  - -D json-server
+  - -D concurrently
+  - '@material-ui/core'
+dependencies:
+  -
+libs: 
+  - core-data
+  - core-state
+  - material
+  - ui-login
+entities:
+  - userSchema:
+    model: user
+    modelPlural: users
+  - courseSchema:
+    model: course
+    modelPlural: courses
+detatched:
+  home:
+    model: home
+    modelPlural: home
+  login:
+    model: login
+    modelPlural: login
+suffixes:
+  style: --style=scss
+  lib: --component=false
+  components: --export=false --routing=true --style=scss

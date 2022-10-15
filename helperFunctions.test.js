@@ -8,7 +8,7 @@ test("workspaceGen works as expected", () => {
     application: "application",
   };
 
-  const res = helper.workspaceGen(config);
+  const res = helper.workspaceGen({ config });
 
   const expected = `npx create-nx-workspace@latest name \\
     --appName=application
@@ -28,7 +28,7 @@ test("packages gen works as expected", () => {
     packages: ["package1", "package2"],
   };
 
-  const res = helper.packagesGen(config);
+  const res = helper.packagesGen({ config });
 
   const expected = `npm i package1 --force && \\\nnpm i package2 --force && \\\n`;
 
@@ -40,7 +40,7 @@ test("dependencies gen works as expected", () => {
     dependencies: ["dep1", "dep2"],
   };
 
-  const res = helper.dependenciesGen(config);
+  const res = helper.dependenciesGen({ config });
 
   const expected = `npx nx g dep1:ng-add --no-interactive && \\\nnpx nx g dep2:ng-add --no-interactive && \\\n`;
 
@@ -58,7 +58,7 @@ test("app dir gen works as expected", () => {
   };
   const module = "module";
 
-  const res = helper.appDirGen(config, module);
+  const res = helper.appDirGen({ config, module });
 
   const expected = `nx g slice modelPlural \\
     --project module \\
@@ -76,7 +76,7 @@ test("lib gen works as expected", () => {
 
   const suffix = "suffix";
 
-  const res = helper.libGen(config, suffix);
+  const res = helper.libGen({ config, suffix });
 
   const expected = `nx g lib lib1 suffix && \\\nnx g lib lib2 suffix && \\\n`;
 
@@ -94,7 +94,7 @@ test("angular state gen works as expected", () => {
   };
   const module = "module";
 
-  const res = helper.angularStateGen(config, module);
+  const res = helper.angularStateGen({ config, module });
 
   const expected = `nx g @nrwl/angular:ngrx modelPlural \\
     --module=libs/module/src/lib/module.module.ts \\
@@ -116,7 +116,7 @@ test("expect services gen to work as expected", () => {
   };
   const module = "module";
 
-  const res = helper.servicesGen(config, module);
+  const res = helper.servicesGen({ config, module });
 
   const expected = `nx g s services/modelPlural/modelPlural --project=module && \\\n`;
 
@@ -130,9 +130,80 @@ test("container gen works as expected", () => {
   };
   const suffix = "suffix";
 
-  const res = helper.containerComponenetGen(entity, suffix);
+  const res = helper.containerComponenetGen({ entity, suffix });
 
   const expected = `nx g c modelPlural suffix && \\\n`;
 
   expect(res).toBe(expected);
+});
+
+test("expect list gen to work as expected", () => {
+  const entity = {
+    model: "model",
+    modelPlural: "modelPlural",
+  };
+  const suffix = "suffix";
+
+  const res = helper.listComponentGen({ entity, suffix });
+
+  const expected = `nx g c model-list --directory=modelPlural suffix && \\\n`;
+
+  expect(res).toBe(expected);
+});
+
+test("expect details gen to work as expected", () => {
+  const entity = {
+    model: "model",
+    modelPlural: "modelPlural",
+  };
+  const suffix = "suffix";
+
+  const res = helper.detailsComponentGen({ entity, suffix });
+
+  const expected = `nx g c model-details --directory=modelPlural suffix && \\\n`;
+
+  expect(res).toBe(expected);
+});
+
+test("expect details gen to work as expected", () => {
+  const entity = {
+    model: "model",
+    modelPlural: "modelPlural",
+  };
+  const project = "project";
+  const suffix = "suffix";
+
+  const res = helper.libComponentGen(entity, project, suffix);
+
+  const expected = `nx g c model --project project suffix && \\\n`;
+
+  expect(res).toBe(expected);
+});
+
+test("component layer gen works as expected", () => {
+  const config = {
+    entities: [
+      {
+        model: "model",
+        modelPlural: "modelPlural",
+      },
+    ],
+  };
+  const suffix = "suffix";
+
+  const res = helper.componentLayerGen({ config, suffix });
+
+  const expected = `nx g c modelPlural suffix && \\\nnx g c model-list --directory=modelPlural suffix && \\\nnx g c model-details --directory=modelPlural suffix && \\\n`;
+
+  expect(res).toBe(expected);
+});
+
+test("json server gen works as expected", () => {
+  const res = helper.jsonServerGen();
+  expect(res).toBe("mkdir server && touch server/db.json && \\\n");
+});
+
+test("start script gen works as expected", () => {
+  const res = helper.startScriptGen();
+  expect(res).toBe('npx concurrently "npm start" "npm start api"');
 });

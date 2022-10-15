@@ -1,0 +1,44 @@
+
+<div>
+<h2>CLI Ludicrous Mode</h2>
+<pre>
+<code class="language-bash">npx create-nx-workspace@latest test \
+    --appName=application
+    --preset=react-express
+    --npmScope=acme
+    --nx-cloud=false
+    --linter=eslint
+    --style=scss && \
+    cd test/ && \
+
+npm i axios --force && \
+npm i -D json-server --force && \
+npm i -D concurrently --force && \
+npm i @material-ui/core --force && \
+npx nx g null:ng-add --no-interactive && \
+nx g lib core-data --component=false && \
+nx g lib core-state --component=false && \
+nx g lib material --component=false && \
+nx g lib ui-login --component=false && \
+nx g slice users \
+    --project core-state \
+    --directory users \
+    --no-interactive \
+    --facade && \
+nx g slice courses \
+    --project core-state \
+    --directory courses \
+    --no-interactive \
+    --facade && \
+nx g c users --export=false --routing=true --style=scss && \
+nx g c user-list --directory=users --export=false --routing=true --style=scss && \
+nx g c user-details --directory=users --export=false --routing=true --style=scss && \
+nx g c courses --export=false --routing=true --style=scss && \
+nx g c course-list --directory=courses --export=false --routing=true --style=scss && \
+nx g c course-details --directory=courses --export=false --routing=true --style=scss && \
+nx g c home --export=false --routing=true --style=scss && \
+mkdir server && touch server/db.json && \
+npx concurrently "npm start" "npm start api"</code>  
+</pre>
+</div>
+
